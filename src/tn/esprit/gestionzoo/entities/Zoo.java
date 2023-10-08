@@ -1,16 +1,26 @@
+package tn.esprit.gestionzoo.entities;
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.Animal;
 public class Zoo {
     private static final int MAX_ANIMALS = 25;
 
-    Animal[] animals;
-    String name, city;
-    int nbrCages;
+    private Animal[] animals;
 
-    int nbrAnimals;
+    private String name, city;
+    private int nbrCages;
+
+    private int nbrAnimals;
 
     public Zoo() {
     }
 
     public Zoo(String name, String city) {
+        if (!name.isEmpty()) {
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("Le nom du Zoo ne peut pas être vide.");
+        }
         this.name = name;
         this.city = city;
         this.nbrCages = MAX_ANIMALS;
@@ -21,16 +31,20 @@ public class Zoo {
     void displayZoo() {
         System.out.println("Name: " + name + ", City: " + city + ", N° Cages/Animals: " + nbrCages);
     }
+     
 
-    boolean addAnimal(Animal animal) {
-        if (searchAnimal(animal) != -1)
-            return false;
-        if (nbrAnimals == nbrCages)
-            return false;
-        animals[nbrAnimals] = animal;
-        nbrAnimals++;
-        return true;
-    }
+ boolean isZooFull() {
+    return nbrAnimals == nbrCages;
+}
+boolean addAnimal(Animal animal) {
+    if (searchAnimal(animal) != -1)
+        return false;
+    if (isZooFull())
+        return false;
+    animals[nbrAnimals] = animal;
+    nbrAnimals++;
+    return true;
+}
 
     boolean removeAnimal(Animal animal) {
         int indexAnimal = searchAnimal(animal);
@@ -59,13 +73,7 @@ public class Zoo {
         }
         return index;
     }
- boolean isZooFull(){
-        for(int i=0;i < nbrAnimals ; i++){
-            if (nbrAnimals==MAX_ANIMALS)
-                return true ;
-        }
-     return true;
- }
+
     static Zoo comparerZoo(Zoo z1, Zoo z2) {
         if (z1.getNbrAnimals() > z2.getNbrAnimals()) {
             return z1;
@@ -80,6 +88,16 @@ public class Zoo {
     public String getName() {
         return name;
     }
+    public Animal[] getAnimals() {
+        return animals;
+    }
+    public String getCity() {
+        return city;
+    }
+    public int getNbrCages() {
+        return nbrCages;
+    }
+    
 
     @Override
     public String toString() {

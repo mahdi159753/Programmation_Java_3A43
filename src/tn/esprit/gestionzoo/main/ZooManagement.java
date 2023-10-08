@@ -1,4 +1,15 @@
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.Animal;
+package tn.esprit.gestionzoo.entities;
+
+import tn.esprit.gestionzoo.entities.Zoo;
+
+
 public class ZooManagement {
+    
+
 
     public static void main(String[] args) {
 
@@ -10,12 +21,11 @@ public class ZooManagement {
 
         Zoo myZoo = new Zoo("Wildlife Park", "Ariana");
 
-        myZoo.name = "Wildlife Park";
-        myZoo.city = "Ariana";
-        myZoo.nbrCages = 25;
-        myZoo.animals = new Animal[25];
-
-
+        String zooName = myZoo.getName();
+        String zooCity = myZoo.getCity();
+        int numberOfCages = myZoo.getNbrCages();
+        Animal[] animalsInMyZoo = myZoo.getAnimals();
+       
         Animal dog = new Animal("Canine", "Snoopy", 2, true);
 
         System.out.println(myZoo);
