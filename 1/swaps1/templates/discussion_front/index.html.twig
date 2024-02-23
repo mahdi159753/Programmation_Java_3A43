@@ -1,0 +1,312 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace de Discussions{% endblock %}
+
+{% block body %}
+<section class="blogs-page-section">
+
+    <section class="page-title" >
+     <section class="page-title" style="background-image:url('/assets/images/background/00.jpg')">
+        <div class="auto-container">
+            <h2 class="text-center" style="color:#fff;">Espace de discussions publiques</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{{ path('app_index') }}">Accueil</a></li>
+                <li>Discussions</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="sidebar-page-container">
+
+
+        <div class="auto-container">
+            <label class="toggle-btn" for="dark-mode">
+                <span class="txt" id="toggle-mode">Mode sombre</span>
+                <input type="checkbox" id="dark-mode" />
+                <span class="map"></span>
+            </label>
+
+
+            <div class="row clearfix">
+
+
+                <!--Content Side-->
+                <div class="content-side col-lg-9 col-md-12 col-sm-12" style="margin-top: 100px;">
+                    <div class="blog-classic" id="discussions-list">
+                        <!-- News Block Two -->
+                        {% for discussion in discussions %}
+                        <div class="news-block-two">
+                            <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                {% if discussion.imageDiscussion is not null %}
+                                <div class="image">
+                                    <a
+                                        href="{{ path('front_discussion_detail', {'idDiscussion': discussion.idDiscussion}) }}"><img
+                                            src="{{ asset('uploads/' ~ discussion.imageDiscussion) }}" alt="" /></a>
+                                </div>
+                                {% endif %}
+                                <div class="lower-content">
+                                    <ul class="post-meta">
+                                        <li> Créé par 
+                                        </li>
+                                        <li>{{ discussion.dateDiscussion|date('d-m-Y') }}</li>
+                                    </ul>
+                                    <h4 style="font-size: 36px;"><a
+                                            href="{{ path('front_discussion_detail', {'idDiscussion': discussion.idDiscussion}) }}">{{
+                                            discussion.titreDiscussion }}</a></h4>
+                                    <div class="text" style="font-size: 20px;">{{ discussion.contenuDiscussion|raw }}</div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <a href="{{ path('front_discussion_detail', {'idDiscussion': discussion.idDiscussion}) }}"
+                                            class="read-more">Voir Plus</a>
+                                        {% if discussion.idUser == user %}
+                                        <div style="margin-top: 40px;display: flex;">
+                                            <div class="btn-box" style="margin-right: 10px;">
+                                                <a href="{{ path('front_discussion_detail', {'idDiscussion': discussion.idDiscussion, 'editMode': true}) }}"
+                                                    class="theme-btn btn-style-one"><i
+                                                        class="map flaticon-edit-1"></i><span class="txt">Modifier la
+                                                        discussion</span></a>
+                                            </div>
+                                            <div class="btn-box">
+                                                <a href="{{ path('deleteDiscussion', {'idDiscussion': discussion.idDiscussion}) }}"
+                                                    class="theme-btn btn-style-one"><i
+                                                        class="map flaticon-settings"></i><span class="txt">Supprimer la
+                                                        discussion</span></a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                                {% if pageCount > 1 %}
+                                <div class="pagination" style="position:absolute; left:300px;bottom:0px;">
+                                    <ul class="styled-pagination">
+                                        {% if pagination.currentPageNumber > 1 %}
+                                        {% set paginationData = pagination.getPaginationData() %}
+                                        {% if paginationData.previous is not empty %}
+                                            <li>
+                                                <a href="{{ path('front_discussion', { 'page': paginationData.previous }) }}">
+                                                    
+                                                    Previous &raquo;
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% endif %}
+
+                                        {% for page in pagination.getPaginationData().pagesInRange %}
+                                        {% if page != pagination.currentPageNumber %}
+                                        <li>
+                                            <a href="{{ path('front_discussion', { 'page': page }) }}">
+                                                {{ page }}
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li class="active">
+                                            {{ page }}
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        {% if pagination.currentPageNumber < pagination.pageCount %}
+                                        {% set paginationData = pagination.getPaginationData() %}
+                                        {% if paginationData.next is not empty %}
+                                            <li>
+                                                <a href="{{ path('front_discussion', { 'page': paginationData.next }) }}">
+                                                    Next &raquo;
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                   
+                                    
+
+                            </ul>
+                        </div>
+                        {% endif %}
+                    
+
+
+                </div>
+            </div>
+
+                <div class="sidebar-side col-lg-3 col-md-12 col-sm-12">
+                    <aside class="sidebar style-two">
+
+
+                        <div class="sidebar-widget search-tour-widget">
+                            <div class="widget-content">
+
+                                <div class="tour-search-tabs">
+                                    <!-- Tours Tabs -->
+                                    <div class="tour-tabs tabs-box">
+
+                                        <!--Tab Btns-->
+                                       
+
+                                        <!--Tabs Container-->
+                                        <div class="tabs-content">
+
+                                            <!--Tab / Active Tab-->
+                                            <div class="tab active-tab" id="prod-details">
+                                                <div class="content">
+
+                                                    <!-- Default Form -->
+                                                    
+
+                                                    <!-- Search -->
+                                                    
+
+                                            <!-- Tab -->
+                                            <div class="tab" id="prod-info">
+                                                <div class="content">
+
+                                                    <!-- Default Form -->
+
+
+
+
+                                                    <!-- Form Group -->
+                                                    <div class="form-group">
+                                                        <div class="date-picker-group">
+                                                            <label for="date1" class="labeldate">Date 1:</label>
+                                                            <input type="date" id="date1" name="date1">
+                                                        </div>
+                                                        <div class="date-picker-group">
+                                                            <label for="date2" class="labeldate">Date 2:</label>
+                                                            <input type="date" id="date2" name="date2">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sidebar-title">
+                            <div class="btn-box">
+                                <a href="{{ path('new_discussion') }}" class="theme-btn btn-style-one"><i
+                                        class="button rounded-0 primary-bg text-white w-100 btn_1"></i><span class="txt">Ajouter une discussion</span></a>
+                                        
+                            </div>
+                        </div>
+                </div>
+
+
+                <!-- Search Widget -->
+
+            </div>
+        </div>
+    </div>
+
+    </aside>
+    </div>
+    </div>
+    </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        const searchForm = document.querySelector('#search-form');
+        const discussionsContainer = document.querySelector('#discussions-list');
+
+        searchForm.elements['search-field'].addEventListener('keyup', (event) => {
+            // récupérer la valeur du champ de recherche
+            event.preventDefault(); // Empêcher l'envoi du formulaire par défaut
+            const searchTerm = searchForm.elements['search-field'].value.trim();
+
+            // envoyer une requête Ajax au contrôleur Symfony
+            if (searchTerm !== '') {
+                $.ajax({
+                    url: "{{ path('search_discussions') }}",
+                    method: "POST",
+                    data: { search_field: searchTerm },
+                    success: function (response) {
+
+                        discussionsContainer.innerHTML = '';
+                        discussionsContainer.innerHTML = response;
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<script>
+    var darkModeEnabled = localStorage.getItem('darkModeEnabled');
+    const checkbox = document.getElementById('dark-mode');
+    const section = document.querySelector('.blogs-page-section');
+
+    // Vérifier si le mode sombre est activé et le mettre à jour si nécessaire
+    if (darkModeEnabled === 'true') {
+        checkbox.checked = true;
+        section.classList.add('dark-mode');
+    }
+
+    // Ajouter un écouteur d'événement pour le changement de mode sombre
+    checkbox.addEventListener('change', function () {
+        section.classList.toggle('dark-mode', this.checked);
+        localStorage.setItem('darkModeEnabled', this.checked);
+    });
+</script>
+<script>
+    // Récupérer les éléments de navigation
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabsContent = document.querySelectorAll('.tab');
+
+    // Ajouter un écouteur d'événements à chaque élément de navigation
+    tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Cacher tous les contenus d'onglets
+            tabsContent.forEach((tab) => {
+                tab.classList.remove('active-tab');
+            });
+
+            // Afficher le contenu de l'onglet cliqué
+            const tabId = btn.getAttribute('data-tab');
+            document.querySelector(tabId).classList.add('active-tab');
+
+            // Mettre à jour l'état actif du bouton de navigation
+            tabBtns.forEach((btn) => {
+                btn.classList.remove('active-btn');
+            });
+            btn.classList.add('active-btn');
+        });
+    });
+</script>
+<script>
+    const discussionsContainer = document.querySelector('#discussions-list');
+
+    // écouter l'événement "change" sur les deux date picker
+    const date1Input = document.querySelector('#date1');
+    const date2Input = document.querySelector('#date2');
+
+    date1Input.addEventListener('change', handleDateChange);
+    date2Input.addEventListener('change', handleDateChange);
+
+    function handleDateChange() {
+        const date1 = date1Input.value;
+        const date2 = date2Input.value;
+
+        // envoyer une requête AJAX au contrôleur Symfony avec les dates
+        $.ajax({
+            url: "{{ path('search_discussions_between_dates') }}",
+            method: "POST",
+            data: { date1: date1, date2: date2 },
+            success: function (response) {
+                // afficher la réponse dans la console
+                discussionsContainer.innerHTML = '';
+                discussionsContainer.innerHTML = response;
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock %}

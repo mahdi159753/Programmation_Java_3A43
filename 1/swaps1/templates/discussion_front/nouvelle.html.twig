@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle discussion{% endblock %}
+
+{% block body %}
+<section class="blogs-page-section">
+    <section class="page-title" style="background-image:url('/assets/images/background/00.jpg')">
+
+        <div class="auto-container">
+			<h2 class="text-center"style="color:#fff;">Espace de discussions publiques</h2>
+			<ul class="page-breadcrumb">
+				<li><a href="{{ path('app_index') }}">Accueil</a></li>
+				<li><a href="{{ path('front_discussion') }}">Discussions</a></li>
+                <li>Nouvelle</li>
+			</ul>
+        </div>
+    <!--End Page Title-->
+</section>
+<section class="blogs-page-section" >
+        <div class="inner-container">
+            <label class="toggle-btn" for="dark-mode" style="margin-left:500px;margin-top: 70px;">
+                <span class="txt" id="toggle-mode">Mode sombre</span>
+                <input type="checkbox" id="dark-mode" />
+                <span class="map"></span>
+              </label>
+            <div class="sec-title" >
+                <h2 class="text-center">Ajoutez<br> votre discussion</h2>
+                <div class="text-center"> Remplissez ce formulaire pour publier votre discussion</div>
+            </div>
+    <h1 class="text-center mb-5">Nouvelle discussion</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="contact-form">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.titreDiscussion, 'Titre', {'label_attr': {'class': 'my-label'}}) }}
+                    {{ form_widget(form.titreDiscussion, {'attr': {'placeholder': 'Titre de discussion','class': 'form-control my-input'}}) }}
+                    {% if form_errors(form.titreDiscussion) %}
+                    <span style="color: red">
+                        {{ form_errors(form.titreDiscussion)}}
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.contenuDiscussion, 'Contenu', {'label_attr': {'class': 'my-label'}}) }}
+                    {{ form_widget(form.contenuDiscussion, {'attr': {'placeholder': 'Rédigez votre contenu ...','class': 'form-control my-input', 'rows': '5'}}) }}
+                    {% if form_errors(form.contenuDiscussion) %}
+            <span style="color: red">
+                {{ form_errors(form.contenuDiscussion)}}
+            </span>
+            {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.imageDiscussion, 'Image', {'label_attr': {'class': 'my-label'}}) }}
+                    {{ form_widget(form.imageDiscussion, {'attr': {'class': 'form-control-file '}}) }}
+                    
+      
+                </div>
+                <button type="submit" class="theme-btn btn-style-one"><span class="txt">Ajouter</span></button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var darkModeEnabled = localStorage.getItem('darkModeEnabled');
+    const checkbox = document.getElementById('dark-mode');
+    const section = document.querySelector('.blogs-page-section');
+    
+    // Vérifier si le mode sombre est activé et le mettre à jour si nécessaire
+    if (darkModeEnabled === 'true') {
+      checkbox.checked = true;
+      section.classList.add('dark-mode');
+    }
+  
+    // Ajouter un écouteur d'événement pour le changement de mode sombre
+    checkbox.addEventListener('change', function() {
+      section.classList.toggle('dark-mode', this.checked);
+      localStorage.setItem('darkModeEnabled', this.checked);
+    });
+    tinymce.init({
+  selector: 'textarea',
+  plugins: 'emoji'
+});
+  </script>
+  
+{% endblock %}

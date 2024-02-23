@@ -1,0 +1,127 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Gestion des discussions{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top: 200px;">
+    <h1 class="text-center">Gestion des discussions</h1>
+    
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form id="search-form">
+                    <div class="row">
+                       
+                    </div>
+                    <div class="text-center margin-top=50px">
+                        
+                    </div>
+                </form>                
+            </div>
+        </div>
+        {% if discussions is not empty %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des discussions</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table primary-table-bg-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Contenu</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Réponses</th> <!-- nouvelle colonne pour le bouton de redirection -->
+                                    </tr>
+                                </thead>
+                                <tbody id="discussions-table-body">
+                                    {% for discussion in discussions %}
+                                    <tr>
+                                        <td>{{ discussion.idDiscussion }}</td>
+                                        <td>{{ discussion.titreDiscussion }}</td>
+                                        <td>{{ discussion.contenuDiscussion|raw }}</td>
+                                        <td>{{ discussion.dateDiscussion|date('Y-m-d') }}</td>
+                                        <td> <!-- nouvelle cellule pour le bouton de redirection -->
+                                            <a href="{{ path('reponses_discussion', {'idDiscussion': discussion.idDiscussion}) }}" class="btn btn-primary">Réponses</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="alert alert-warning" role="alert">
+                    Aucune discussion trouvée.
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Intercepter l'événement "submit" du formulaire de recherche
+                $('#search-form').submit(function(e) {
+                    e.preventDefault(); // Empêcher le formulaire de se soumettre normalement
+        
+                    // Récupérer les valeurs des champs "firstname" et "lastname"
+                    var firstname = $('input[name="firstname"]').val();
+                    var lastname = $('input[name="lastname"]').val();
+        
+                    // Envoyer une requête Ajax pour récupérer les discussions correspondantes
+                    $.ajax({
+                        url: '{{ path("search_by_user_ajax") }}', // Remplacer par le nom de votre route Symfony
+                        type: 'GET',
+                        data: {
+                            firstname: firstname,
+                            lastname: lastname
+                        },
+                        success: function(data) {
+                            
+                            var tbody = $('#discussions-table-body');
+                            tbody.empty(); // Vider le contenu actuel de la table
+        
+                            for (var i = 0; i < data.length; i++) {
+                                var discussion = data[i];
+        
+                                var tr = $('<tr>');
+                                tr.append($('<td>').text(discussion.id));
+                                tr.append($('<td>').text(discussion.titre));
+                                tr.append($('<td>').text(discussion.contenu));
+                                tr.append($('<td>').text(discussion.date));
+                                tr.append($('<td>').append($('<a>').attr('href', '/gestion/discussion/' + discussion.id +'/reponses').addClass('btn btn-primary').text('Réponses')));
+
+                                tbody.append(tr);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                    // Ajouter une alerte pour afficher le message d'erreur
+                    if (jqXHR.status == 404) {
+                        alert('Utilisateur non trouvé.');
+                    } else {
+                        alert('Erreur Ajax: ' + textStatus + '\n' + errorThrown);
+                    }
+                }
+                    });
+                });
+            });
+        </script>
+        
+        
+        
+       
+        
+    </div>
+{% endblock %}

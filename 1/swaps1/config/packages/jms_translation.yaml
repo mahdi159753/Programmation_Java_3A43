@@ -1,0 +1,10 @@
+jms_translation:
+    config:
+        dirs: ['%kernel.project_dir%/translations']
+        ignored_domains: []
+        excluded_names: ['*TestCase.php']
+    configs:
+        app:
+            dirs: ['%kernel.project_dir%/src']
+            output_dir: '%kernel.project_dir%/translations'
+            excluded_names: ['*Test*', '*Kernel*', '*Fixtures*', '*DataFixtures*', '*DataLoaders*', '*Migration*']

@@ -1,0 +1,52 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+search_by_user_ajax:
+    path: /gestion/discussion/search-ajax
+    controller: App\Controller\GestionDiscussionController::searchByUserAjax
+    methods: ['GET']
+front_discussion:
+    path: /discussion
+    controller: App\Controller\DiscussionFrontController::index
+new_discussion:
+    path: /discussion/new
+    controller: App\Controller\DiscussionFrontController::nouvelleDiscussion    
+front_discussion_detail:
+    path: /discussion/{idDiscussion}
+    controller: App\Controller\DiscussionFrontController::show
+app_index:
+    path: /index
+    controller: App\Controller\IndexController::index
+deleteDiscussion:
+    path: /deleteDiscussion/{idDiscussion}
+    controller: App\Controller\DiscussionFrontController::deleteDiscussion
+editDiscussion:
+    path: /editDiscussion/{idDiscussion}
+    controller: App\Controller\DiscussionFrontController::editDiscussion
+search_discussions:
+    path: /search-discussions
+    controller: App\Controller\DiscussionFrontController::searchDiscussions
+search_discussions_between_dates:
+    path: /search-discussions-between-dates
+    controller: App\Controller\DiscussionFrontController::searchDiscussionsBetweenDates
+deleteReponse:
+    path: /deleteReponse/{idReponse}
+    controller: App\Controller\ReponseController::deleteReponse
+list:
+    path: /AllDiscussionsJSON
+    controller: App\Controller\DiscussionFrontController::getDiscussions
+front_discussionJSON_detail:
+    path: /discussionJSON/{idDiscussion}
+    controller: App\Controller\DiscussionFrontController::discussionID 
+deleteDiscussionJSON:
+    path: /deleteDiscussionJSON/{idDiscussion}
+    controller: App\Controller\DiscussionFrontController::deleteDiscussionJSON
+new_discussionJSON:
+    path: /discussionsJSON/new
+    controller: App\Controller\DiscussionFrontController::nouvelleDiscussionJSON
+deleteReponseJSON:
+    path: /deleteReponseJSON/{idReponse}
+    controller: App\Controller\ReponseController::deleteReponseJSON
+new_reponseJSON:
+    path: /reponsesJSON/new
+    controller: App\Controller\ReponseController::nouvelleReponseJSON

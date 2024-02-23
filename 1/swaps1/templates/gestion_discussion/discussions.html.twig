@@ -1,0 +1,31 @@
+
+    <div class="container" style="margin-top: 200px;">
+        <h1 class="text-center">Toutes les discussions</h1>
+        <div class="row justify-content-center">
+            {% if discussions is not empty %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Contenu</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for discussion in discussions %}
+                            <tr>
+                                <td>{{ discussion.idDiscussion }}</td>
+                                <td>{{ discussion.titreDiscussion }}</td>
+                                <td>{{ discussion.contenuDiscussion|raw }}</td>
+                                <td>{{ discussion.dateDiscussion|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Aucune discussion trouvée.</p>
+            {% endif %}
+        </div>
+    </div>
+

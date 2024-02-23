@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from gico.io/ghurbo/demos/ghurbo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Mar 2023 16:59:08 GMT -->
+<head>
+<meta charset="utf-8">
+
+<title>{% block title %}Ghurbo HTML Template | Homepage{% endblock %}</title>
+
+<!-- Stylesheets -->
+{% block css%}
+<link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
+<link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
+<link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
+
+<link rel="{{asset('shortcut icon" href="assets/images/favicon.png" type="image/x-icon')}}">
+<link rel="{{asset('icon" href="assets/images/favicon.png" type="image/x-icon')}}">
+{% endblock %}
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+{% block js %}
+<script src="{{asset('assets/js/jquery.js')}}"></script>
+<script src="{{asset('assets/js/popper.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.fancybox.js')}}"></script>
+<script src="{{asset('assets/js/appear.js')}}"></script>
+<script src="{{asset('assets/js/owl.js')}}"></script>
+<script src="{{asset('assets/js/wow.js')}}"></script>
+<script src="{{asset('assets/js/parallax.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery-ui.js')}}"></script>
+<script src="{{asset('assets/js/script.js')}}"></script>
+<script>
+    function openSidebar() {
+        document.querySelector('.hidden-bar.right-align').classList.add('visible-sidebar');
+    }
+    function closeSideBar() {
+        document.querySelector('.hidden-bar.right-align.visible-sidebar').classList.remove('visible-sidebar'); 
+    }
+    </script>
+
+
+{% endblock %}
+</head>
+
+<body>
+{% block header %}
+<div class="page-wrapper">
+    
+    <!-- Preloader -->
+    <div class="preloader"></div>
+    
+    <!-- Main Header-->
+    <header class="main-header header-style-one">
+        
+        <!-- Header Top -->
+        
+        
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="auto-container">
+                <div class="inner-container clearfix">
+                    
+                   
+                    
+                    <div class="nav-outer clearfix">
+                        <!-- Mobile Navigation Toggler -->
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu"></span></div>
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+
+                                    <li class="logo"><a href="index.html"><img src="{{asset('assets/images/logo.png')}}" alt="" title=""></a></li>
+                                    <li class="current dropdown"><a href="#">Accueil</a>
+                                        <ul>
+                                            <li><a href="index.html">Home Page 01</a></li>
+                                            <li><a href="index-2.html">Home Page 02</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Projet</a>
+                                        <ul>
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="faq.html">Faq's</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">évènement</a>
+                                        <ul>
+                                            <li><a href="tour.html">Tour Grid</a></li>
+                                            <li><a href="tour-list.html">Tour List</a></li>
+                                            <li><a href="tour-detail.html">Tour Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Logement</a>
+                                        <ul>
+                                            <li><a href="destination.html">Destination</a></li>
+                                            <li><a href="destination-2.html">Destination 02</a></li>
+                                            <li><a href="destination-detail.html">Destination Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Produit</a>
+                                        <ul>
+                                            <li><a href="destination.html">Destination</a></li>
+                                            <li><a href="destination-2.html">Destination 02</a></li>
+                                            <li><a href="destination-detail.html">Destination Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">avis</a>
+                                        <ul>
+                                            <li><a href="tour.html">Tour Grid</a></li>
+                                            <li><a href="tour-list.html">Tour List</a></li>
+                                            <li><a href="tour-detail.html">Tour Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Forum</a>
+                                        <ul>
+                                            <li><a href="{{ path('new_discussion') }}">Ajouter une Discussion</a></li>
+                                            <li><a href="{{ path('front_discussion') }}">Espace discussion publique</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">Reclamation</a></li>
+                                </ul>
+                            </div>
+                            
+                        </nav>
+                        
+                        <!-- Outer Box -->
+                        <div class="outer-box">
+                        
+                            <!-- Button Box -->
+                            <div class="btn-box">
+                                <a href="contact.html" class="theme-btn btn-style-one"><i class="map flaticon-user"></i><span class="txt">Se connecter</span></a>
+                            </div>
+                            
+                            
+                            <!-- End Cart Box -->
+                            
+                            <!-- Nav Btn -->
+                            <div class="nav-btn nav-toggler" onclick="openSidebar()"><span class="icon flaticon-menu"></span></div>
+                            
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+        
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon fa fa-remove"></span></div>
+            
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="index.html"><img src="{{asset('assets/images/logo.png')}}" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+        
+    </header>
+    <!--End Main Header -->
+    {% endblock %}
+
+    {% block sidebar %}
+    <!-- Hidden Navigation Bar -->
+    <section class="hidden-bar right-align">
+       
+        <div class="hidden-bar-closer" onclick="closeSideBar()">
+            <button><span class="flaticon-multiply"></span></button>
+        </div>
+        
+        <!-- Hidden Bar Wrapper -->
+        <div class="hidden-bar-wrapper">
+            
+            <div class="logo">
+                <a href="index.html"><img src="{{asset('assets/images/logo.png')}}" alt="" /></a>
+            </div>
+            <div class="content-box">
+                <h2>A propos de nous</h2>
+                <div class="text">Europe may be famous for its history, monuments and sightseeing, but summer is for enjoying the outdoors. For hiking, cycling, swimming, splashing around in the water and exploring your limits. </div>
+                <a href="#" class="theme-btn btn-style-one"><span class="txt">Nous contacter</span></a>
+            </div>
+            <div class="contact-info">
+                <h2>Coordonnées</h2>
+                <ul class="list-style-one">
+                    <li><span class="icon fa fa-map-marker"></span>Tunis, Tunisia</li>
+                    <li><span class="icon fa fa-phone"></span>(+216) 28 538 822</li>
+                    <li><span class="icon fa fa-envelope-o"></span>swaps@gmail.com</li>
+                    <li><span class="icon fa fa-clock-o"></span>Week Days: 09.00 to 18.00 Sunday: Closed</li>
+                </ul>
+            </div>
+        </div><!-- / Hidden Bar Wrapper -->
+    
+    </section>
+    <!-- End / Hidden Bar -->
+   {% endblock %}
+
+{% block body %} 
+{% endblock %}
+
+
+
+
+
+
+
+{% block footer %}
+{% endblock %}
+
+</body>
+
+<!-- Mirrored from gico.io/ghurbo/demos/ghurbo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Mar 2023 16:59:22 GMT -->
+</html>

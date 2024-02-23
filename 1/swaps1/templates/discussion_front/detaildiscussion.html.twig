@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace de Discussions{% endblock %}
+
+{% block body %}
+<section class="blogs-page-section">
+    <section class="page-title" style="background-image:url('/assets/images/background/00.jpg')">
+
+        <div class="auto-container">
+			<h2 class="text-center"style="color:#fff;">Espace de discussions publiques</h2>
+			<ul class="page-breadcrumb">
+				<li><a href="{{ path('app_index') }}">Accueil</a></li>
+				<li><a href="{{ path('front_discussion') }}">Discussions</a></li>
+                <li>Detail</li>
+			</ul>
+        </div>
+ <!--End Page Title-->
+</section>
+
+	
+<!-- Sidebar Page Container -->
+	<div class="sidebar-page-container">
+		<div class="auto-container">
+			<label class="toggle-btn" for="dark-mode">
+                <span class="txt" id="toggle-mode">Mode sombre</span>
+                <input type="checkbox" id="dark-mode" />
+                <span class="map"></span>
+              </label>
+			
+			<div class="row clearfix">
+				
+				<!--Content Side-->
+				<div class="content-side col-lg-9 col-md-12 col-sm-12">
+                    
+					<div class="blog-detail">
+                        {% if editMode == false or discussion.idUser != user %}
+                        <div class="inner-box">
+                            <h3 style="font-size: 50px;margin-bottom: 50px;margin-top: 50px;">{{ discussion.titreDiscussion }}</h3>
+                            <div class="post-info">Créé par  le {{ discussion.dateDiscussion|date('d-m-Y') }}</div>
+                            <div class="image">
+                                <img src="{{ asset('uploads/' ~ discussion.imageDiscussion) }}" style="border-radius: 30px;" alt="" />
+                            </div>
+                          
+                               
+                    </div>
+                       
+                    {% else %}
+                    <div class="inner-box">
+                        <h3 style="font-size: 50px;margin-bottom: 70px;">{{ discussion.titreDiscussion }}</h3>
+                        <div class="post-info">Créé par 
+                        
+                        <div class="image">
+                            {{ form_widget(discussionform.imageDiscussion, {'attr': {'class': 'form-control-file '}}) }}
+                            <img src="{{ asset('uploads/' ~ discussion.imageDiscussion) }}" style="border-radius: 30px;" alt="" />
+                        </div>
+                        <div class="content">
+                            {{ form_widget(discussionform.contenuDiscussion, {'attr': {'class': 'form-control', 'rows': '8'}}) }}
+                            {% if form_errors(discussionform.contenuDiscussion) %}
+                            <span style="color: red">
+                                {{ form_errors(discussionform.contenuDiscussion)}}
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="theme-btn btn-style-one"><span class="txt">Enregistrer</span></button>
+                        {{ form_end(discussionform) }}
+                    </div>
+                    {% endif %}
+
+
+                  
+				
+			
+		
+
+
+					
+						
+					<!-- Comments Area -->
+						<div class="comments-area">
+							<div class="group-title">
+								<h5>{{num}} Comments</h5>
+							</div>
+                            {% set reponse1 = null %}
+{% for reponse in reponses %}
+   
+
+            {% if editreponsemode == 1 and reponse.idReponse == idEditReponse and reponse.idUser==user %}
+                {% set reponse1 = reponse %}
+            {% else %}
+			<div class="comment-box">
+				<div class="comment">
+				<div class="author-thumb"><img src="{{ asset('assets/images/avatar.png') }}" alt=""></div>
+				<div class="comment-info clearfix">
+					
+					<div class="comment-time">{{ reponse.dateReponse|date('Y-m-d') }}</div>
+				</div>
+                <div class="text">{{ reponse.contenuReponse|striptags }}</div>
+				{% if reponse.idUser == user %}
+									
+									<a class="theme-btn reply-btn"style="top:50px;" href="{{ path('deleteReponse', {'idReponse': reponse.idReponse}) }}">Supprimer</a>
+									{% endif %}
+								</div>
+							</div>
+            {% endif %}
+       
+{% endfor %}
+
+{% if reponse1 is not null %}
+    <div class="comment-box">
+        <div class="comment">
+            <div class="author-thumb"><img src="{{ asset('assets/images/avatar.png') }}" alt=""></div>
+            <div class="comment-info clearfix">
+                <strong>{{ reponseRepository.findUserNameByReponseId(reponse1.idReponse) }}</strong>
+                <div class="comment-time">{{ reponse1.dateReponse|date('Y-m-d') }}</div>
+            </div>
+            <div class="comment-form">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        {{ form_start(reponseform, {'attr': {'class': 'my-form'}}) }}
+                            {% if form_errors(reponseform.contenuReponse) %}
+                                <span style="color: red">{{ form_errors(reponseform.contenuReponse) }}</span>
+                            {% endif %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                {{ form_widget(reponseform.contenuReponse, {'attr': {'class': 'form-control', 'rows': '8'}, 'value': reponse1.contenuReponse}) }}
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <button type="submit" class="theme-btn btn-style-one"><span class="txt">Modifier</span></button>
+                            </div>
+                        {{ form_end(reponseform) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+							
+		        </div>
+						
+						
+						<!-- Comment Form -->
+						<div class="comment-form">
+								
+							<div class="group-title">
+                                {% if num == 0 %}
+								<h5>Soyez le premier à répondre à cette discussion</h5>
+                                {% else %}
+                                <h5>Répondre à cette discussion</h5>
+                                {% endif %}
+								
+							</div>
+							
+						
+						<!--Comment Form-->
+							<div class="row clearfix">
+									
+									
+									
+									
+								<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+									{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+
+	<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+		{{ form_widget(form.contenuReponse, {'attr': {'class': 'darma', 'placeholder': 'Type your comment'}}) }}
+		{% if form_errors(form.contenuReponse) %}
+						<span style="color: red">
+							{{ form_errors(form.contenuReponse)}}
+						</span>
+						{% endif %}
+	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+		<button type="submit" class="theme-btn btn-style-one"><span class="txt">Ajouter</span></button>
+	</div>
+
+{{ form_end(form) }}
+	
+</div>
+<!--End Comment Form -->
+</div>
+</div>
+
+
+<!--Sidebar Side-->
+<div class="sidebar-side col-lg-3 col-md-12 col-sm-12">
+<aside class="sidebar style-two">
+
+
+
+
+
+</div>
+</aside>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</section>
+
+<script>
+    var isTranslated = document.getElementById('is-translated').value == "1";
+
+    function toggleTranslation() {
+        isTranslated = !isTranslated;
+        if (isTranslated) {
+            document.getElementById('translated-content').style.display = 'block';
+        } else {
+            document.getElementById('translated-content').style.display = 'none';
+        }
+    }
+
+    // show/hide translated content based on initial value of isTranslated
+    if (isTranslated) {
+        document.getElementById('translated-content').style.display = 'block';
+    } else {
+        document.getElementById('translated-content').style.display = 'none';
+    }
+</script>
+
+  
+<script>
+	var darkModeEnabled = localStorage.getItem('darkModeEnabled');
+	const checkbox = document.getElementById('dark-mode');
+	const section = document.querySelector('.blogs-page-section');
+	
+	// Vérifier si le mode sombre est activé et le mettre à jour si nécessaire
+	if (darkModeEnabled === 'true') {
+	  checkbox.checked = true;
+	  section.classList.add('dark-mode');
+	}
+  
+	// Ajouter un écouteur d'événement pour le changement de mode sombre
+	checkbox.addEventListener('change', function() {
+	  section.classList.toggle('dark-mode', this.checked);
+	  localStorage.setItem('darkModeEnabled', this.checked);
+	});
+  </script>
+  
+
+{% endblock %}
